@@ -3,7 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 
-def get_paa_questions(query, hl='it', num_results=10):
+def get_paa_questions(query, hl='it', num_results=5):
     url = f"https://www.google.com/search?q={query}&hl={hl}"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
@@ -12,10 +12,10 @@ def get_paa_questions(query, hl='it', num_results=10):
     response.raise_for_status()
     soup = BeautifulSoup(response.text, 'html.parser')
     
-    # Find all related questions
-    paa_questions = [question.get_text() for question in soup.select('div.related-question-pair, div.BVG0Nb')]
+    # Find all related questions up to 5
+    paa_questions = [question.get_text() for question in soup.select('div.related-question-pair, div.BVG0Nb')][:num_results]
     
-    return paa_questions[:num_results]
+    return paa_questions
 
 def capture_paa_questions(header, query, all_questions, hl, num_results):
     questions = get_paa_questions(query, hl, num_results)
@@ -26,7 +26,6 @@ def main():
     
     queries = st.text_area("Enter up to 20 search queries, separated by commas:")
     hl = st.selectbox("Select language for search:", ['it', 'en', 'fr', 'es', 'de'])
-    num_results = st.slider("Number of PAA questions to retrieve per query:", min_value=1, max_value=20, value=10)
     
     all_questions = {"People Also Ask questions": []}
     
@@ -34,7 +33,7 @@ def main():
         if queries:
             query_list = [q.strip() for q in queries.split(',')[:20]]
             for query in query_list:
-                capture_paa_questions("People Also Ask questions", query, all_questions, hl, num_results)
+                capture_paa_questions("People Also Ask questions", query, all_questions, hl, 5)
             
             st.success("Scraping complete!")
             
