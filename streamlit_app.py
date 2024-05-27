@@ -13,14 +13,9 @@ def get_paa_questions(query, hl='it', num_results=10):
     soup = BeautifulSoup(response.text, 'html.parser')
     
     # Find all related questions
-    paa_questions = [question.get_text() for question in soup.find_all('div', class_='related-question-pair')][:num_results]
+    paa_questions = [question.get_text() for question in soup.select('div.related-question-pair, div.BVG0Nb')]
     
-    # If not enough questions found, look for additional ones
-    if len(paa_questions) < num_results:
-        additional_questions = [question.get_text() for question in soup.find_all('div', class_='BVG0Nb')][:num_results - len(paa_questions)]
-        paa_questions.extend(additional_questions)
-    
-    return paa_questions
+    return paa_questions[:num_results]
 
 def capture_paa_questions(header, query, all_questions, hl, num_results):
     questions = get_paa_questions(query, hl, num_results)
