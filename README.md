@@ -3,6 +3,8 @@
 
 The Google PAA Scraper is a tool developed in Python and Streamlit that allows users to extract "People Also Ask" (PAA) questions from Google for a set of specified queries. This tool can be particularly useful for SEO projects, helping to create editorial plans, optimize FAQs, and identify related keywords.
 
+➞ (DEMO)[https://people-also-ask-extractor.streamlit.app/]
+
 ## Features
 
 - **Query Input**: Enter up to 20 search queries separated by commas.
