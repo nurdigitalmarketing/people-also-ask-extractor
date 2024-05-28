@@ -47,4 +47,4 @@ This project is licensed under the MIT License.
 
 ## Contact
 
-For any inquiries or feedback, please contact **NUR® Digital Marketing** at (info@nur.it)[info@nur.it].
+For any inquiries or feedback, please contact **NUR® Digital Marketing** at info@nur.it.
