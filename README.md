@@ -1,1 +1,0 @@
-# people-also-ask-extractor
